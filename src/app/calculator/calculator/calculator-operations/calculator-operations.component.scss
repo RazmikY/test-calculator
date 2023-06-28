@@ -1,0 +1,12 @@
+.form {
+    gap: 0 24px;
+    margin-bottom: 24px;
+
+    .form-field {
+        gap: 0 16px;
+
+        .label-field {
+            min-width: 80px;
+        }
+    }
+}

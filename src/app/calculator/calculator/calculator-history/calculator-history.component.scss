@@ -1,0 +1,13 @@
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+
+    .table-head {
+        position: sticky;
+        top: 0;
+
+        th {
+            background-color: #ece7e7;
+        }
+    }
+}
