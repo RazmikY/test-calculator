@@ -66,6 +66,10 @@ describe('CalculatorOperationsComponent', () => {
         expect(component.disabled).toBeFalse();
         expect(component.form.invalid).toBeFalse();
         expect(component.form.valid).toBeTrue();
+
+        component.form.get('operand1')?.setValue(null);
+        expect(component.disabled).toBeTrue();
+        expect(component.form.invalid).toBeTrue();
     });
 
     it('should emit action when form is valid and button was clicked.', () => {
@@ -79,20 +83,23 @@ describe('CalculatorOperationsComponent', () => {
 
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith({
-            operand1: 5,
-            operand2: 15,
-            operationType: 0,
+            entry: {
+                operand1: 5,
+                operand2: 15,
+                operationType: 0,
+            },
         });
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should reset form after clicked button', () => {
+    it('should reset form', () => {
         component.form.get('operand1')?.setValue(5);
         component.form.get('operand2')?.setValue(15);
         component.form.get('selectedOperation')?.setValue(0);
 
-        component.calculate();
+        (component as any).resetForm();
 
+        expect(component.form.invalid).toBeTrue();
         expect(component.form.invalid).toBeTrue();
     });
 });

@@ -17,26 +17,24 @@ describe('OperationService', () => {
     });
 
     it('should provide operations', () => {
-        service.operations$.subscribe((operations) => {
-            expect(operations).toEqual({
-                [OperationType.Addition]: {
-                    operationType: OperationType.Addition,
-                    displayName: '+',
-                },
-                [OperationType.Division]: {
-                    operationType: OperationType.Division,
-                    displayName: '/',
-                },
-                [OperationType.Modulo]: {
-                    operationType: OperationType.Modulo,
-                    displayName: '%',
-                },
-                [OperationType.HighestPrime]: {
-                    operationType: OperationType.HighestPrime,
-                    displayName: 'Highest Prime Number',
-                },
-            });
-        });
+        expect(service.operations).toEqual([
+            {
+                operationType: OperationType.Addition,
+                displayName: '+',
+            },
+            {
+                operationType: OperationType.Division,
+                displayName: '/',
+            },
+            {
+                operationType: OperationType.Modulo,
+                displayName: '%',
+            },
+            {
+                operationType: OperationType.HighestPrime,
+                displayName: 'Highest Prime Number',
+            },
+        ]);
     });
 
     it('should add entry to history', () => {
@@ -63,6 +61,5 @@ describe('OperationService', () => {
         entry.entryId = 2;
         service.addToHistory(entry);
         expect((service as any).historySub.getValue().length).toBe(2);
-
     });
 });

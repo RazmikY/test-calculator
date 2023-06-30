@@ -25,7 +25,9 @@ import { CalculationEntry, Operation } from '../../models';
 })
 export class CalculatorOperationsComponent {
     @Input() operations: Operation[] | null = null;
-    @Output() onCalculate = new EventEmitter<Partial<CalculationEntry>>();
+    @Output() onCalculate = new EventEmitter<{
+        entry: Partial<CalculationEntry>;
+    }>();
     public form!: FormGroup;
 
     constructor(private fb: FormBuilder) {
@@ -41,12 +43,12 @@ export class CalculatorOperationsComponent {
     }
 
     public calculate(): void {
-        this.onCalculate.emit({
+        const entry = {
             operand1: this.getValue('operand1'),
             operand2: this.getValue('operand2'),
             operationType: this.getValue('selectedOperation'),
-        });
-        this.resetForm();
+        };
+        this.onCalculate.emit({ entry });
     }
 
     private getValue(name: string): number {
@@ -57,7 +59,7 @@ export class CalculatorOperationsComponent {
         return this.form.invalid;
     }
 
-    private resetForm(): void {
+    public resetForm(): void {
         this.form.reset();
     }
 }

@@ -1,13 +1,13 @@
 <form [formGroup]="form" class="d-xl-flex align-items-start form">
-    <div class="mb-3 mb-xl-0 d-sm-flex form-field align-items-start">
+    <div class="mb-3 mb-xl-0 d-sm-flex form-field align-items-center">
         <label for="operand1" class="form-label label-field">Operand 1:</label>
         <input type="number" id="operand1" formControlName="operand1" class="form-control"/>
     </div>
-    <div class="mb-3 mb-xl-0 d-sm-flex form-field align-items-start">
+    <div class="mb-3 mb-xl-0 d-sm-flex form-field align-items-center">
         <label for="operand2" class="form-label label-field">Operand 2:</label>
         <input type="number" id="operand2" formControlName="operand2" class="form-control"/>
     </div>
-    <div class="mb-3 mb-xl-0 d-sm-flex form-field align-items-start">
+    <div class="mb-3 mb-xl-0 d-sm-flex form-field align-items-center">
         <label for="operation" class="form-label label-field">Operation:</label>
         <select id="operation" formControlName="selectedOperation" class="form-select">
             <option [ngValue]="null"></option>

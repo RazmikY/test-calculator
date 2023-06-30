@@ -7,7 +7,7 @@ describe('CalculatorComponent', () => {
     let component: CalculatorComponent;
     let fixture: ComponentFixture<CalculatorComponent>;
 
-    const data = {
+    const entry = {
         operand1: 52,
         operand2: 25,
         operationType: 0,
@@ -29,22 +29,32 @@ describe('CalculatorComponent', () => {
     it('should call calculate method', () => {
         const spy = spyOn((component as any).calculationService, 'calculate');
 
-        component.calculate(data);
+        component.calculate({ entry });
 
         expect(spy).toHaveBeenCalled();
-        expect(spy).toHaveBeenCalledWith(data);
+        expect(spy).toHaveBeenCalledWith(entry);
     });
 
     it('should call addToHistory method', () => {
         const spy = spyOn((component as any).operationService, 'addToHistory');
 
-        component.calculate(data);
+        component.calculate({ entry });
 
         expect(spy).toHaveBeenCalled();
     });
 
+    it('should reset form', () => {
+        const spy = spyOn(component.operationComp, 'resetForm');
+
+        component.calculate({ entry });
+
+        expect(spy).toHaveBeenCalled();
+        expect(component.operationComp.form.invalid).toBeTrue();
+        expect(component.operationComp.disabled).toBeTrue();
+    });
+
     it('should add new entry inside history$ array', () => {
-        component.calculate(data);
+        component.calculate({ entry });
 
         component.history$.subscribe((history) => {
             expect(history.length).toBe(1);

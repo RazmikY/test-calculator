@@ -1,10 +1,11 @@
 <main class="container main-container">
     <app-calculator-operations
-        [operations]="operations$ | async"
+        [operations]="operations"
         (onCalculate)="calculate($event)"
+        #operationComp
     />
     <app-calculator-history
         [history$]="history$"
-        [operationDisplayNames]="operationDisplayNames$ | async"
+        [operationDisplayNames]="operationDisplayNames"
     />
 </main>
