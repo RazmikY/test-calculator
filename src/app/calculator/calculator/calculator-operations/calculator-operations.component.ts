@@ -28,14 +28,12 @@ export class CalculatorOperationsComponent {
     @Output() onCalculate = new EventEmitter<{
         entry: Partial<CalculationEntry>;
     }>();
-    public form!: FormGroup;
+    public form = this.initForm();
 
-    constructor(private fb: FormBuilder) {
-        this.initForm();
-    }
+    constructor(private fb: FormBuilder) { }
 
-    private initForm(): void {
-        this.form = this.fb.group({
+    private initForm() {
+        return this.fb.group({
             operand1: [null, [Validators.required]],
             operand2: [null, [Validators.required]],
             selectedOperation: [null, [Validators.required]],
