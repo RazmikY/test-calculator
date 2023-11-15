@@ -25,7 +25,11 @@ export class CalculationService {
 
     private entryId = 0;
 
-    public calculate({ operand1, operand2, operationType }: CalculationEntry): CalculationEntry {
+    public calculate({
+        operand1,
+        operand2,
+        operationType,
+    }: CalculationEntry): CalculationEntry {
         if (isNaN(operand1) || isNaN(operand2)) {
             throw new Error('Invalid operands. Please provide valid numbers.');
         }

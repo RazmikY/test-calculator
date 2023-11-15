@@ -6,12 +6,7 @@ import {
     Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-    FormBuilder,
-    FormGroup,
-    ReactiveFormsModule,
-    Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { CalculationEntry, Operation } from '../../models';
 
@@ -25,12 +20,12 @@ import { CalculationEntry, Operation } from '../../models';
 })
 export class CalculatorOperationsComponent {
     @Input() operations: Operation[] | null = null;
-    @Output() onCalculate = new EventEmitter<{
+    @Output() calculate = new EventEmitter<{
         entry: Partial<CalculationEntry>;
     }>();
     public form = this.initForm();
 
-    constructor(private fb: FormBuilder) { }
+    constructor(private fb: FormBuilder) {}
 
     private initForm() {
         return this.fb.group({
@@ -40,13 +35,13 @@ export class CalculatorOperationsComponent {
         });
     }
 
-    public calculate(): void {
+    public onCalculate(): void {
         const entry = {
             operand1: this.getValue('operand1'),
             operand2: this.getValue('operand2'),
             operationType: this.getValue('selectedOperation'),
         };
-        this.onCalculate.emit({ entry });
+        this.calculate.emit({ entry });
     }
 
     private getValue(name: string): number {

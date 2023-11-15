@@ -1,4 +1,4 @@
-import { OperationType } from "../enums";
+import { OperationType } from '../enums';
 
 export interface Operation {
     readonly displayName: string;

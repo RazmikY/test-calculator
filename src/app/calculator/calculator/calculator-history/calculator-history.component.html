@@ -1,4 +1,4 @@
-<div class=" table-container">
+<div class="table-container">
     <table class="table align-middle">
         <thead class="table-head">
             <tr>
@@ -9,11 +9,16 @@
             </tr>
         </thead>
         <tbody class="table-body">
-            <tr *ngFor="let entry of history$ | async; trackBy: trackByEntryId">
+            <tr *ngFor="let entry of history; trackBy: trackByEntryId">
                 <td>{{ entry.operand1 }}</td>
                 <td>{{ entry.operand2 }}</td>
-                <td>{{ entry.operationType | operationName : operationDisplayNames! }}</td>
-                <td>{{ entry.result | number : "1.0-2" }}</td>
+                <td>
+                    {{
+                        entry.operationType
+                            | operationName: operationDisplayNames!
+                    }}
+                </td>
+                <td>{{ entry.result | number: '1.0-2' }}</td>
             </tr>
         </tbody>
     </table>

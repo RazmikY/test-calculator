@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Input } from '@angular/core';
-import { of } from 'rxjs';
+import { Input, Pipe, PipeTransform } from '@angular/core';
 
 import { CalculatorHistoryComponent } from './calculator-history.component';
 import { CalculationEntry } from '../../models';
@@ -46,17 +45,17 @@ describe('CalculatorHistoryComponent', () => {
             [OperationType.Division]: '/',
         } as Record<OperationType, string>;
 
-        component.history$ = of(history);
+        component.history = history;
         component.operationDisplayNames = operationDisplayNames;
 
         fixture.detectChanges();
 
-        component.history$.subscribe(_history => {
-            _history.forEach((_, index) => {
-                expect(history[index].result).toEqual(history[index].result)
-            })
-        })
-        expect(component.operationDisplayNames).withContext('operationDisplayNames').toEqual(operationDisplayNames);
+        component.history.forEach((_, index) => {
+            expect(history[index].result).toEqual(history[index].result);
+        });
+        expect(component.operationDisplayNames)
+            .withContext('operationDisplayNames')
+            .toEqual(operationDisplayNames);
     });
 
     it('should track entries by entryId', () => {
@@ -69,7 +68,11 @@ describe('CalculatorHistoryComponent', () => {
     });
 });
 
-@Component({ selector: 'app-operation-name', template: '' , standalone: true})
-class MockOperationNamePipe {
+@Pipe({ name: 'operationName', standalone: true })
+class MockOperationNamePipe implements PipeTransform {
     @Input() operation: string | null = null;
+
+    transform(value: any, ...args: any[]) {
+        throw new Error('Method not implemented.');
+    }
 }

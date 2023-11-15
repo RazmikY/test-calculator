@@ -27,12 +27,11 @@ export class OperationService {
         },
     ];
 
-    private historySub = new BehaviorSubject<CalculationEntry[]>([]);
-    public readonly history$ = this.historySub.asObservable();
+    private _historySub = new BehaviorSubject<CalculationEntry[]>([]);
+    public readonly history$ = this._historySub.asObservable();
 
     public addToHistory(entry: CalculationEntry): void {
-        const history = this.historySub.getValue();
-        history.push(entry);
-        this.historySub.next(history);
+        const history = [...this._historySub.getValue(), entry];
+        this._historySub.next(history);
     }
 }

@@ -56,7 +56,7 @@ describe('CalculatorComponent', () => {
     it('should add new entry inside history$ array', () => {
         component.calculate({ entry });
 
-        component.history$.subscribe((history) => {
+        component.history$.subscribe(history => {
             expect(history.length).toBe(1);
         });
     });
