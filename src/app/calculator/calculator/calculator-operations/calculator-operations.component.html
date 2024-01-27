@@ -20,19 +20,20 @@
         <select
             id="operation"
             formControlName="selectedOperation"
-            class="form-select">
+            class="form-select"
+        >
             <option [ngValue]="null"></option>
-            >
-            <option
-                *ngFor="let operation of operations"
-                [ngValue]="operation.operationType">
-                {{ operation.displayName }}
-            </option>
+
+            @for (operation of operations; track operation.operationType) {
+                <option [ngValue]="operation.operationType">
+                    {{ operation.displayName }}
+                </option>
+            }
         </select>
     </div>
     <button
         (click)="onCalculate()"
-        id="calculate-button"
+        data-test="calculate-button"
         [disabled]="disabled"
         class="btn btn-primary">
         Calculate

@@ -8,7 +8,7 @@ describe('OperationService', () => {
     let service: OperationService;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
+        TestBed.configureTestingModule({ providers: [OperationService] });
         service = TestBed.inject(OperationService);
     });
 
@@ -37,6 +37,19 @@ describe('OperationService', () => {
         ]);
     });
 
+    it('should call signal update method', () => {
+        const update = spyOn(
+            (service as any)._historySignal,
+            'update'
+        ).and.returnValue([]);
+
+        service.addToHistory({} as CalculationEntry);
+
+        expect(update)
+            .withContext('update method was not call')
+            .toHaveBeenCalled();
+    });
+
     it('should add entry to history', () => {
         const entry: CalculationEntry = {
             operand1: 5,
@@ -46,20 +59,12 @@ describe('OperationService', () => {
             entryId: 1,
         };
 
-        const getValue = spyOn(
-            (service as any).historySub,
-            'getValue'
-        ).and.returnValue([]);
-        const next = spyOn((service as any).historySub, 'next');
-
         service.addToHistory(entry);
 
-        expect(getValue).toHaveBeenCalled();
-        expect(next).toHaveBeenCalledWith([entry]);
-        expect((service as any).historySub.getValue().length).toBe(1);
+        expect((service as any).history().length).withContext('history length is not 1').toBe(1);
 
         entry.entryId = 2;
         service.addToHistory(entry);
-        expect((service as any).historySub.getValue().length).toBe(2);
+        expect((service as any).history().length).toBe(2);
     });
 });

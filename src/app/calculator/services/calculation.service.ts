@@ -9,16 +9,16 @@ import { OperationType } from '../enums';
 export class CalculationService {
     private readonly operations = {
         [OperationType.Addition]: {
-            action: (operand1: number, operand2: number) => operand1 + operand2,
+            calculate: (operand1: number, operand2: number) => operand1 + operand2,
         },
         [OperationType.Division]: {
-            action: (operand1: number, operand2: number) => operand1 / operand2,
+            calculate: (operand1: number, operand2: number) => operand1 / operand2,
         },
         [OperationType.Modulo]: {
-            action: (operand1: number, operand2: number) => operand1 % operand2,
+            calculate: (operand1: number, operand2: number) => operand1 % operand2,
         },
         [OperationType.HighestPrime]: {
-            action: (operand1: number, operand2: number) =>
+            calculate: (operand1: number, operand2: number) =>
                 this.findHighestPrimeNumber(operand1, operand2),
         },
     } as const;
@@ -42,7 +42,7 @@ export class CalculationService {
             );
         }
 
-        const result = selectedOperation.action(operand1, operand2);
+        const result = selectedOperation.calculate(operand1, operand2);
 
         return {
             operand1,

@@ -4,7 +4,6 @@ import {
     ViewChild,
     inject,
 } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 
 import { CalculatorOperationsComponent } from './calculator-operations/calculator-operations.component';
 import { CalculatorHistoryComponent } from './calculator-history/calculator-history.component';
@@ -15,11 +14,7 @@ import { OperationType } from '../enums';
 @Component({
     selector: 'app-calculator',
     standalone: true,
-    imports: [
-        CalculatorOperationsComponent,
-        CalculatorHistoryComponent,
-        AsyncPipe,
-    ],
+    imports: [CalculatorOperationsComponent, CalculatorHistoryComponent],
     templateUrl: './calculator.component.html',
     styleUrls: ['./calculator.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +24,8 @@ export class CalculatorComponent {
     private calculationService = inject(CalculationService);
 
     @ViewChild('operationComp') operationComp!: CalculatorOperationsComponent;
-    public history$ = this.operationService.history$;
+
+    public history = this.operationService.history;
     public operations = this.operationService.operations;
     public operationDisplayNames = this.getOperationsDisplayNames(
         this.operations

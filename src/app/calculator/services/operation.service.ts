@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 
 import { OperationType } from '../enums';
 import { CalculationEntry } from '../models';
@@ -27,11 +26,10 @@ export class OperationService {
         },
     ];
 
-    private _historySub = new BehaviorSubject<CalculationEntry[]>([]);
-    public readonly history$ = this._historySub.asObservable();
+    private _historySignal = signal<CalculationEntry[]>([]);
+    public readonly history = this._historySignal.asReadonly();
 
     public addToHistory(entry: CalculationEntry): void {
-        const history = [...this._historySub.getValue(), entry];
-        this._historySub.next(history);
+        this._historySignal.update(history => [...history, entry ]);
     }
 }

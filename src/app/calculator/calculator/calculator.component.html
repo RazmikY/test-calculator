@@ -3,7 +3,10 @@
         [operations]="operations"
         (calculate)="calculate($event)"
         #operationComp />
-    <app-calculator-history
-        [history]="history$ | async"
-        [operationDisplayNames]="operationDisplayNames" />
+
+    @defer (when history().length) {
+        <app-calculator-history
+            [history]="history()"
+            [operationDisplayNames]="operationDisplayNames" />
+    }
 </main>

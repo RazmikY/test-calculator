@@ -53,11 +53,9 @@ describe('CalculatorComponent', () => {
         expect(component.operationComp.disabled).toBeTrue();
     });
 
-    it('should add new entry inside history$ array', () => {
+    it('should add new entry inside history array', () => {
         component.calculate({ entry });
 
-        component.history$.subscribe(history => {
-            expect(history.length).toBe(1);
-        });
+        expect(component.history().length).toBe(1);
     });
 });

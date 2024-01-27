@@ -57,15 +57,6 @@ describe('CalculatorHistoryComponent', () => {
             .withContext('operationDisplayNames')
             .toEqual(operationDisplayNames);
     });
-
-    it('should track entries by entryId', () => {
-        const index = 1;
-        const entry = history[1];
-
-        const trackByResult = component.trackByEntryId(index, entry);
-
-        expect(trackByResult).toEqual(entry.entryId);
-    });
 });
 
 @Pipe({ name: 'operationName', standalone: true })

@@ -5,7 +5,6 @@ import {
     Input,
     Output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { CalculationEntry, Operation } from '../../models';
@@ -13,7 +12,7 @@ import { CalculationEntry, Operation } from '../../models';
 @Component({
     selector: 'app-calculator-operations',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [ ReactiveFormsModule],
     templateUrl: './calculator-operations.component.html',
     styleUrls: ['./calculator-operations.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,17 +28,17 @@ export class CalculatorOperationsComponent {
 
     private initForm() {
         return this.fb.group({
-            operand1: [null, [Validators.required]],
-            operand2: [null, [Validators.required]],
-            selectedOperation: [null, [Validators.required]],
+            operand1: ['', [Validators.required]],
+            operand2: ['', [Validators.required]],
+            selectedOperation: ['', [Validators.required]],
         });
     }
 
     public onCalculate(): void {
         const entry = {
-            operand1: this.getValue('operand1'),
-            operand2: this.getValue('operand2'),
-            operationType: this.getValue('selectedOperation'),
+            operand1: +this.getValue('operand1'),
+            operand2: +this.getValue('operand2'),
+            operationType: +this.getValue('selectedOperation'),
         };
         this.calculate.emit({ entry });
     }
